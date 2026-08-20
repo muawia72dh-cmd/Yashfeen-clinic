@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>عيادة يشفين لطب الأسنان</title>
 
@@ -14,9 +14,7 @@
   --soft:#eef5f4;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -40,9 +38,7 @@ body{
   border-bottom:4px solid var(--gold);
 }
 
-.logo{
-  font-size:56px;
-}
+.logo{font-size:56px}
 
 h1{
   margin:4px 0;
@@ -80,21 +76,7 @@ h1{
   color:#1d2629;
 }
 
-.map-btn{
-  display:block;
-  background:var(--ink);
-  color:white;
-  text-align:center;
-  text-decoration:none;
-  font-weight:800;
-  padding:15px;
-  border-radius:14px;
-  margin:16px 0;
-}
-
-section{
-  padding:18px;
-}
+section{padding:18px}
 
 h2{
   font-size:23px;
@@ -139,22 +121,32 @@ summary{
   border-radius:10px;
 }
 
-.clinic-map{
-  width:100%;
-  height:auto;
+.map-btn{
   display:block;
-  border-radius:16px;
-  border:1px solid #dde7e4;
-  margin-top:15px;
+  margin:18px 0;
+  padding:15px;
+  border-radius:14px;
+  background:var(--ink);
+  color:#fff;
+  text-decoration:none;
+  text-align:center;
+  font-weight:800;
 }
 
 .map-title{
   text-align:center;
   color:var(--ink);
-  font-weight:800;
   font-size:19px;
-  margin-top:22px;
-  margin-bottom:8px;
+  font-weight:800;
+  margin:22px 0 10px;
+}
+
+.clinic-map{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:16px;
+  border:1px solid #dde7e4;
 }
 
 footer{
@@ -164,9 +156,17 @@ footer{
   padding:22px;
 }
 
+.error{
+  margin:20px;
+  padding:20px;
+  text-align:center;
+  background:#fff4d5;
+  border-radius:14px;
+  color:#153f46;
+}
+
 @media(max-width:540px){
-  .grid,
-  .actions{
+  .grid,.actions{
     grid-template-columns:1fr;
   }
 
@@ -182,13 +182,9 @@ footer{
 <main class="wrap">
 
 <header class="hero">
-
   <div class="logo">🦷</div>
-
-  <h1 id="clinic_name"></h1>
-
+  <h1 id="clinic_name">عيادة يشفين لطب الأسنان</h1>
   <div class="sub" id="tagline"></div>
-
 </header>
 
 
@@ -196,13 +192,16 @@ footer{
 
   <a id="wa"
      class="btn primary"
-     target="_blank">
-     احجز عبر واتساب
+     href="#"
+     target="_blank"
+     rel="noopener">
+    احجز عبر واتساب
   </a>
 
   <a id="call_btn"
-     class="btn secondary">
-     اتصل بالعيادة
+     class="btn secondary"
+     href="#">
+    اتصل بالعيادة
   </a>
 
 </div>
@@ -222,24 +221,13 @@ footer{
   <h2>تعليمات المرضى</h2>
 
   <details>
-
-    <summary>
-      تعليمات ما بعد القلع
-    </summary>
-
+    <summary>تعليمات ما بعد القلع</summary>
     <ul id="post_extraction"></ul>
-
   </details>
 
-
   <details>
-
-    <summary>
-      تعليمات الحجوزات
-    </summary>
-
+    <summary>تعليمات الحجوزات</summary>
     <ul id="booking"></ul>
-
   </details>
 
 </section>
@@ -247,11 +235,9 @@ footer{
 
 <section>
 
-  <h2>الأسعار</h2>
+  <h2>الأسعار والملاحظات</h2>
 
-  <div class="note"
-       id="prices_note">
-  </div>
+  <div class="note" id="prices_note"></div>
 
 </section>
 
@@ -262,53 +248,43 @@ footer{
 
   <div class="card">
 
-    <b>الموقع:</b>
-
+    <strong>الموقع:</strong>
     <div id="clinic_location"></div>
 
     <br>
 
-    <b>دوام العيادة:</b>
-
+    <strong>دوام العيادة:</strong>
     <div id="hours"></div>
-
     <div id="morning_hours"></div>
 
     <br>
 
-    <b>واتساب:</b>
-
+    <strong>واتساب:</strong>
     <span id="whatsapp"></span>
 
     <br>
 
-    <b>اتصال:</b>
-
+    <strong>اتصال:</strong>
     <span id="phone"></span>
 
-
-    <!-- زر Google Maps -->
 
     <a
       class="map-btn"
       href="https://maps.app.goo.gl/zVLP1rdeWQ9fakaF7"
       target="_blank"
       rel="noopener noreferrer">
-
       📍 فتح موقع العيادة على Google Maps
-
     </a>
 
-
-    <!-- الخريطة الإرشادية -->
 
     <div class="map-title">
       الخريطة الإرشادية للوصول إلى العيادة
     </div>
 
+
     <img
       src="clinic%20-%20map%20.jpg"
-      alt="الخريطة الإرشادية لموقع عيادة يشفين لطب الأسنان"
+      alt="الخريطة الإرشادية لموقع عيادة يشفين"
       class="clinic-map">
 
   </div>
@@ -318,13 +294,13 @@ footer{
 
 <footer>
 
-  <strong id="footer_name"></strong>
+  <strong id="footer_name">
+    عيادة يشفين لطب الأسنان
+  </strong>
 
   <br>
 
-  <span>
-    اتصل واحجز موعدك
-  </span>
+  اتصل واحجز موعدك
 
 </footer>
 
@@ -333,207 +309,182 @@ footer{
 
 <script>
 
-const $ = (id) => document.getElementById(id);
+function byId(id) {
+  return document.getElementById(id);
+}
+
+function safeText(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value);
+}
+
+function addCards(elementId, items) {
+
+  var container = byId(elementId);
+
+  container.innerHTML = "";
+
+  if (!Array.isArray(items)) {
+    return;
+  }
+
+  items.forEach(function(item) {
+
+    var div = document.createElement("div");
+
+    div.className = "card";
+
+    div.textContent = safeText(item);
+
+    container.appendChild(div);
+
+  });
+
+}
+
+function addList(elementId, items) {
+
+  var list = byId(elementId);
+
+  list.innerHTML = "";
+
+  if (!Array.isArray(items)) {
+    return;
+  }
+
+  items.forEach(function(item) {
+
+    var li = document.createElement("li");
+
+    li.textContent = safeText(item);
+
+    list.appendChild(li);
+
+  });
+
+}
 
 
-fetch('./content.json?ts=' + Date.now(), {
-  cache:'no-store'
+fetch("content.json?v=" + new Date().getTime(), {
+  cache: "no-store"
 })
 
-.then(response => {
+.then(function(response) {
 
-  if(!response.ok){
-    throw new Error('تعذر تحميل content.json');
+  if (!response.ok) {
+    throw new Error("content.json could not be loaded");
   }
 
   return response.json();
 
 })
 
-.then(c => {
+.then(function(data) {
+
+  byId("clinic_name").textContent =
+    safeText(data.clinic_name);
+
+  byId("footer_name").textContent =
+    safeText(data.clinic_name);
+
+  byId("tagline").textContent =
+    safeText(data.tagline);
+
+  byId("clinic_location").textContent =
+    safeText(data.location);
+
+  byId("hours").textContent =
+    safeText(data.hours);
+
+  byId("morning_hours").textContent =
+    safeText(data.morning_hours);
+
+  byId("whatsapp").textContent =
+    safeText(data.whatsapp);
+
+  byId("phone").textContent =
+    safeText(data.phone);
+
+  byId("prices_note").textContent =
+    safeText(data.prices_note);
 
 
-  /* اسم العيادة */
-
-  $('clinic_name').textContent =
-    c.clinic_name || '';
-
-  $('footer_name').textContent =
-    c.clinic_name || '';
-
-  $('tagline').textContent =
-    c.tagline || '';
+  addCards(
+    "services",
+    data.services
+  );
 
 
-  /* معلومات الاتصال */
+  if (data.instructions) {
 
-  $('whatsapp').textContent =
-    c.whatsapp || '';
+    addList(
+      "post_extraction",
+      data.instructions.post_extraction
+    );
 
-  $('phone').textContent =
-    c.phone || '';
-
-
-  /* الموقع */
-
-  $('clinic_location').textContent =
-    c.location || '';
-
-
-  /* الدوام */
-
-  $('hours').textContent =
-    c.hours || '';
-
-  $('morning_hours').textContent =
-    c.morning_hours || '';
-
-
-  /* الأسعار */
-
-  $('prices_note').textContent =
-    c.prices_note || '';
-
-
-  /* رابط الواتساب */
-
-  if(c.whatsapp){
-
-    const waNumber =
-      c.whatsapp.replace(/\D/g,'').replace(/^0/,'');
-
-    $('wa').href =
-      'https://wa.me/964' + waNumber;
+    addList(
+      "booking",
+      data.instructions.booking
+    );
 
   }
 
 
-  /* رابط الاتصال */
+  if (data.whatsapp) {
 
-  if(c.phone){
+    var whatsapp =
+      String(data.whatsapp).replace(/\D/g, "");
 
-    const phoneNumber =
-      c.phone.replace(/\D/g,'').replace(/^0/,'');
+    if (whatsapp.charAt(0) === "0") {
+      whatsapp = whatsapp.substring(1);
+    }
 
-    $('call_btn').href =
-      'tel:+964' + phoneNumber;
+    byId("wa").href =
+      "https://wa.me/964" + whatsapp;
 
   }
 
 
-  /* الخدمات */
+  if (data.phone) {
 
-  const services =
-    Array.isArray(c.services)
-    ? c.services
-    : [];
+    var phone =
+      String(data.phone).replace(/\D/g, "");
 
-  $('services').innerHTML =
-    services
-    .map(item =>
-      `<div class="card">${escapeHtml(String(item))}</div>`
-    )
-    .join('');
+    if (phone.charAt(0) === "0") {
+      phone = phone.substring(1);
+    }
 
+    byId("call_btn").href =
+      "tel:+964" + phone;
 
-  /* تعليمات ما بعد القلع */
-
-  const postExtraction =
-    c.instructions &&
-    Array.isArray(c.instructions.post_extraction)
-    ? c.instructions.post_extraction
-    : [];
-
-  $('post_extraction').innerHTML =
-    postExtraction
-    .map(item =>
-      `<li>${escapeHtml(String(item))}</li>`
-    )
-    .join('');
-
-
-  /* تعليمات الحجوزات */
-
-  const booking =
-    c.instructions &&
-    Array.isArray(c.instructions.booking)
-    ? c.instructions.booking
-    : [];
-
-  $('booking').innerHTML =
-    booking
-    .map(item =>
-      `<li>${escapeHtml(String(item))}</li>`
-    )
-    .join('');
+  }
 
 })
 
-.catch(error => {
+.catch(function(error) {
 
   console.error(error);
 
-  document.querySelector('.wrap').innerHTML = `
-    <div style="
-      padding:40px 20px;
-      text-align:center;
-      font-family:Tahoma,Arial,sans-serif;
-    ">
+  var message =
+    document.createElement("div");
 
-      <h2>
-        تعذر تحميل بيانات الصفحة
-      </h2>
+  message.className = "error";
 
-      <p>
-        يرجى إعادة تحميل الصفحة.
-      </p>
+  message.textContent =
+    "تعذر تحميل بيانات الصفحة. يرجى إعادة تحميل الموقع.";
 
-    </div>
-  `;
+  document.querySelector(".wrap")
+    .insertBefore(
+      message,
+      document.querySelector(".wrap").firstChild
+    );
 
 });
 
-
-function escapeHtml(text){
-
-  return text.replace(
-    /[&<>"']/g,
-    character => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[character])
-  );
-
-}
-
 </script>
 
-</body>
-</html>    const post = c.instructions && Array.isArray(c.instructions.post_extraction)
-      ? c.instructions.post_extraction : [];
-    $('post_extraction').innerHTML = post.map(x => `<li>${escapeHtml(String(x))}</li>`).join('');
-
-    const booking = c.instructions && Array.isArray(c.instructions.booking)
-      ? c.instructions.booking : [];
-    $('booking').innerHTML = booking.map(x => `<li>${escapeHtml(String(x))}</li>`).join('');
-  })
-  .catch(err => {
-    console.error(err);
-    document.querySelector('.wrap').innerHTML =
-      '<div style="padding:30px;text-align:center;font-family:Tahoma,Arial,sans-serif">' +
-      '<h2>تعذر تحميل بيانات الصفحة</h2>' +
-      '<p>تأكد من وجود ملف content.json في نفس مجلد index.html.</p>' +
-      '</div>';
-  });
-
-function escapeHtml(s) {
-  return s.replace(/[&<>"']/g, m => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-  }[m]));
-}
-</script>
 </body>
 </html>
