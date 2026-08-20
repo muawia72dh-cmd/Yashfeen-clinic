@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تعديل محتوى عيادة يشفين</title>
+<style>
+body{font-family:Tahoma,Arial,sans-serif;background:#eef4f3;margin:0;color:#1b272b}.wrap{max-width:760px;margin:auto;padding:18px}
+h1{color:#153f46}label{font-weight:800;display:block;margin-top:14px}input,textarea{width:100%;padding:11px;border:1px solid #cad9d5;border-radius:10px;font:inherit;background:white}
+textarea{min-height:90px}button{border:0;border-radius:12px;padding:13px 16px;font-weight:800;cursor:pointer;margin-top:15px}
+.save{background:#153f46;color:white}.download{background:#c59a35;color:#1b272b}.card{background:white;padding:16px;border-radius:14px;margin:12px 0}
+.note{background:#fff5d9;padding:12px;border-radius:10px}
+</style></head>
+<body><div class="wrap">
+<h1>لوحة تعديل محتوى عيادة يشفين</h1>
+<div class="note">عدّل النصوص، ثم اضغط «تحميل content.json». استبدل الملف القديم بهذا الملف داخل مجلد الموقع وارفع الموقع من جديد إلى نفس مشروع Netlify. الرابط والـQR يبقيان نفسهما.</div>
+<div class="card">
+<label>اسم العيادة</label><input id="clinic_name">
+<label>العنوان المختصر</label><input id="tagline">
+<label>واتساب</label><input id="whatsapp">
+<label>اتصال</label><input id="phone">
+<label>الموقع</label><textarea id="location"></textarea>
+<label>الدوام</label><input id="hours">
+<label>الدوام الصباحي</label><input id="morning_hours">
+<label>الخدمات — كل خدمة بسطر</label><textarea id="services"></textarea>
+<label>تعليمات ما بعد القلع — كل تعليم بسطر</label><textarea id="post_extraction"></textarea>
+<label>تعليمات الحجوزات — كل تعليم بسطر</label><textarea id="booking"></textarea>
+<label>ملاحظة الأسعار</label><textarea id="prices_note"></textarea>
+<button class="download" onclick="downloadJSON()">تحميل content.json المحدّث</button>
+</div>
+</div>
+<script>
+let data;
+fetch('content.json?ts='+Date.now()).then(r=>r.json()).then(c=>{
+ data=c;
+ clinic_name.value=c.clinic_name; tagline.value=c.tagline; whatsapp.value=c.whatsapp; phone.value=c.phone;
+ location.value=c.location; hours.value=c.hours; morning_hours.value=c.morning_hours;
+ services.value=c.services.join('\n'); post_extraction.value=c.instructions.post_extraction.join('\n');
+ booking.value=c.instructions.booking.join('\n'); prices_note.value=c.prices_note;
+});
+function lines(v){return v.split('\n').map(x=>x.trim()).filter(Boolean)}
+function downloadJSON(){
+ const c={
+  clinic_name:clinic_name.value.trim(),tagline:tagline.value.trim(),whatsapp:whatsapp.value.trim(),phone:phone.value.trim(),
+  location:location.value.trim(),hours:hours.value.trim(),morning_hours:morning_hours.value.trim(),
+  services:lines(services.value),
+  instructions:{post_extraction:lines(post_extraction.value),booking:lines(booking.value)},
+  prices_note:prices_note.value.trim()
+ };
+ const blob=new Blob([JSON.stringify(c,null,2)],{type:'application/json;charset=utf-8'});
+ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='content.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+</script></body></html>
