@@ -1,0 +1,57 @@
+content:
+  - name: clinic
+    label: عيادة يشفين لطب الأسنان
+    type: file
+    path: content.json
+    format: json
+    fields:
+      - name: clinic_name
+        label: اسم العيادة
+        type: string
+
+      - name: tagline
+        label: العبارة التعريفية
+        type: string
+
+      - name: whatsapp
+        label: رقم الواتساب
+        type: string
+
+      - name: phone
+        label: رقم الاتصال
+        type: string
+
+      - name: location
+        label: موقع العيادة
+        type: text
+
+      - name: hours
+        label: دوام العيادة
+        type: string
+
+      - name: morning_hours
+        label: الدوام الصباحي
+        type: string
+
+      - name: services
+        label: خدمات العيادة
+        type: string
+        list: true
+
+      - name: instructions
+        label: تعليمات المرضى
+        type: object
+        fields:
+          - name: post_extraction
+            label: تعليمات ما بعد القلع
+            type: string
+            list: true
+
+          - name: booking
+            label: تعليمات الحجوزات
+            type: string
+            list: true
+
+      - name: prices_note
+        label: الأسعار والملاحظات
+        type: text
