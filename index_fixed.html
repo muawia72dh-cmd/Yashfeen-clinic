@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>عيادة يشفين لطب الأسنان</title>
+<style>
+:root{--ink:#153f46;--gold:#c59a35;--paper:#fffdf8;--soft:#eef5f4}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--soft);color:#182126;line-height:1.8}
+.wrap{max-width:780px;margin:auto;min-height:100vh;background:var(--paper)}
+.hero{text-align:center;padding:34px 20px 24px;background:linear-gradient(145deg,#fffdf8,#edf7f4);border-bottom:4px solid var(--gold)}
+.logo{font-size:56px}
+h1{margin:4px 0;color:var(--ink);font-size:30px}
+.sub{color:#7d651d;font-weight:700}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:18px}
+.btn{padding:14px;border-radius:14px;text-align:center;text-decoration:none;font-weight:800}
+.primary{background:var(--ink);color:white}
+.secondary{background:var(--gold);color:#1d2629}
+section{padding:18px}
+h2{font-size:23px;color:var(--ink);border-right:5px solid var(--gold);padding-right:10px;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border:1px solid #dde7e4;border-radius:14px;padding:13px;box-shadow:0 2px 10px #0000000c}
+details{background:#fff;border:1px solid #dde7e4;border-radius:14px;padding:12px 14px;margin:9px 0}
+summary{font-weight:800;color:var(--ink);cursor:pointer}
+.note{background:#fff4d5;border-right:5px solid var(--gold);padding:12px;border-radius:10px}
+footer{background:var(--ink);color:white;text-align:center;padding:22px}
+@media(max-width:540px){.grid,.actions{grid-template-columns:1fr}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+  <div class="logo">🦷</div>
+  <h1 id="clinic_name"></h1>
+  <div class="sub" id="tagline"></div>
+</header>
+
+<div class="actions">
+  <a id="wa" class="btn primary">احجز عبر واتساب</a>
+  <a id="call_btn" class="btn secondary">اتصل بالعيادة</a>
+</div>
+
+<section>
+  <h2>خدماتنا</h2>
+  <div id="services" class="grid"></div>
+</section>
+
+<section>
+  <h2>تعليمات المرضى</h2>
+  <details>
+    <summary>تعليمات ما بعد القلع</summary>
+    <ul id="post_extraction"></ul>
+  </details>
+  <details>
+    <summary>تعليمات الحجوزات</summary>
+    <ul id="booking"></ul>
+  </details>
+</section>
+
+<section>
+  <h2>الأسعار</h2>
+  <div class="note" id="prices_note"></div>
+</section>
+
+<section>
+  <h2>الموقع والدوام</h2>
+  <div class="card">
+    <b>الموقع:</b><div id="clinic_location"></div><br>
+    <b>دوام العيادة:</b><div id="hours"></div><div id="morning_hours"></div><br>
+    <b>واتساب:</b> <span id="whatsapp"></span><br>
+    <b>اتصال:</b> <span id="phone"></span>
+  </div>
+</section>
+
+<footer>
+  <strong id="footer_name"></strong><br>
+  <span>اتصل واحجز موعدك واحصل على علاج ممتاز</span>
+</footer>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+fetch('./content.json?ts=' + Date.now(), {cache: 'no-store'})
+  .then(response => {
+    if (!response.ok) throw new Error('content.json not found');
+    return response.json();
+  })
+  .then(c => {
+    $('clinic_name').textContent = c.clinic_name || '';
+    $('footer_name').textContent = c.clinic_name || '';
+    $('tagline').textContent = c.tagline || '';
+
+    $('whatsapp').textContent = c.whatsapp || '';
+    $('phone').textContent = c.phone || '';
+    $('clinic_location').textContent = c.location || '';
+    $('hours').textContent = c.hours || '';
+    $('morning_hours').textContent = c.morning_hours || '';
+    $('prices_note').textContent = c.prices_note || '';
+
+    if (c.whatsapp) $('wa').href = 'https://wa.me/964' + c.whatsapp.replace(/^0/, '');
+    if (c.phone) $('call_btn').href = 'tel:+964' + c.phone.replace(/^0/, '');
+
+    const services = Array.isArray(c.services) ? c.services : [];
+    $('services').innerHTML = services.map(x => `<div class="card">${escapeHtml(String(x))}</div>`).join('');
+
+    const post = c.instructions && Array.isArray(c.instructions.post_extraction)
+      ? c.instructions.post_extraction : [];
+    $('post_extraction').innerHTML = post.map(x => `<li>${escapeHtml(String(x))}</li>`).join('');
+
+    const booking = c.instructions && Array.isArray(c.instructions.booking)
+      ? c.instructions.booking : [];
+    $('booking').innerHTML = booking.map(x => `<li>${escapeHtml(String(x))}</li>`).join('');
+  })
+  .catch(err => {
+    console.error(err);
+    document.querySelector('.wrap').innerHTML =
+      '<div style="padding:30px;text-align:center;font-family:Tahoma,Arial,sans-serif">' +
+      '<h2>تعذر تحميل بيانات الصفحة</h2>' +
+      '<p>تأكد من وجود ملف content.json في نفس مجلد index.html.</p>' +
+      '</div>';
+  });
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, m => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+  }[m]));
+}
+</script>
+</body>
+</html>
