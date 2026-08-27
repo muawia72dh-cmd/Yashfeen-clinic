@@ -235,3 +235,1442 @@ td{
 
 th{
   background:#f0f5f3;
+  color:var(--ink);
+}
+
+.message{
+  background:#fff4d5;
+  border-radius:10px;
+  padding:10px;
+  margin-top:10px;
+}
+
+@media(max-width:540px){
+
+  .grid,
+  .actions,
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:26px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<main class="wrap">
+
+<header class="hero">
+
+  <div class="logo">
+    🦷
+  </div>
+
+  <h1 id="clinic_name">
+    عيادة يشفين لطب الأسنان
+  </h1>
+
+  <div
+    class="sub"
+    id="tagline">
+  </div>
+
+</header>
+
+
+<div class="actions">
+
+  <a
+    id="wa"
+    class="btn primary"
+    href="#"
+    target="_blank"
+    rel="noopener">
+    احجز عبر واتساب
+  </a>
+
+  <a
+    id="call_btn"
+    class="btn secondary"
+    href="#">
+    اتصل بالعيادة
+  </a>
+
+</div>
+
+
+<section>
+
+  <h2>
+    خدماتنا
+  </h2>
+
+  <div
+    id="services"
+    class="grid">
+  </div>
+
+</section>
+
+
+<section>
+
+  <h2>
+    تعليمات المرضى
+  </h2>
+
+  <details>
+
+    <summary>
+      تعليمات ما بعد القلع
+    </summary>
+
+    <ul id="post_extraction"></ul>
+
+  </details>
+
+
+  <details>
+
+    <summary>
+      تعليمات الحجوزات
+    </summary>
+
+    <ul id="booking"></ul>
+
+  </details>
+
+</section>
+
+
+<section>
+
+  <h2>
+    الأسعار والملاحظات
+  </h2>
+
+  <div
+    class="note"
+    id="prices_note">
+  </div>
+
+</section>
+
+
+<section>
+
+  <h2>
+    📍 الموقع والدوام
+  </h2>
+
+  <div class="card">
+
+    <strong>
+      الموقع:
+    </strong>
+
+    <div id="clinic_location"></div>
+
+    <br>
+
+
+    <strong>
+      دوام العيادة:
+    </strong>
+
+    <div id="hours"></div>
+
+    <div id="morning_hours"></div>
+
+    <br>
+
+
+    <strong>
+      واتساب:
+    </strong>
+
+    <span id="whatsapp"></span>
+
+    <br>
+
+
+    <strong>
+      اتصال:
+    </strong>
+
+    <span id="phone"></span>
+
+
+    <a
+      class="map-btn"
+      href="https://maps.app.goo.gl/zVLP1rdeWQ9fakaF7"
+      target="_blank"
+      rel="noopener noreferrer">
+
+      📍 فتح موقع العيادة على Google Maps
+
+    </a>
+
+
+    <div class="map-title">
+      الخريطة الإرشادية للوصول إلى العيادة
+    </div>
+
+
+    <img
+      src="clinic-map-new.png"
+      alt="الخريطة الإرشادية لموقع عيادة يشفين"
+      class="clinic-map">
+
+  </div>
+
+</section>
+
+
+<!--
+هذا القسم مخفي تمامًا عن المرضى.
+لا يظهر إلا على موبايل صاحب العيادة
+بعد تعريف الجهاز لأول مرة.
+-->
+
+<section
+  id="ownerPanel"
+  class="owner-panel hidden">
+
+
+  <div class="owner-header">
+
+    <h2 style="margin:0">
+      📊 إحصائيات زيارات الموقع
+    </h2>
+
+
+    <button
+      id="logoutButton"
+      class="btn danger hidden"
+      onclick="logoutOwner()">
+
+      تسجيل الخروج
+
+    </button>
+
+  </div>
+
+
+  <!-- تسجيل الدخول لأول مرة -->
+
+  <div
+    id="ownerLogin"
+    class="card hidden">
+
+    <strong>
+      تعريف هذا الجهاز كجهاز صاحب العيادة
+    </strong>
+
+    <p>
+      سجّل الدخول مرة واحدة فقط.
+      بعد ذلك سيتعرف الموقع على هذا الموبايل تلقائيًا.
+    </p>
+
+
+    <input
+      id="ownerEmail"
+      type="email"
+      placeholder="الإيميل">
+
+
+    <input
+      id="ownerPassword"
+      type="password"
+      placeholder="كلمة المرور">
+
+
+    <button
+      class="btn primary"
+      onclick="loginOwner()">
+
+      دخول
+
+    </button>
+
+
+    <div id="ownerLoginMessage"></div>
+
+  </div>
+
+
+  <!-- الإحصائيات -->
+
+  <div
+    id="ownerStats"
+    class="hidden">
+
+
+    <div class="stats-grid">
+
+
+      <div class="stat">
+
+        زيارات اليوم
+
+        <strong id="todayVisits">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="stat">
+
+        زيارات هذا الشهر
+
+        <strong id="monthVisits">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="stat">
+
+        زيارات هذه السنة
+
+        <strong id="yearVisits">
+          0
+        </strong>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="card">
+
+      <button
+        class="btn primary"
+        onclick="loadStatistics()">
+
+        تحديث الإحصائيات
+
+      </button>
+
+
+      <div class="message">
+
+        هذا الموبايل مستثنى تلقائيًا من عدّ الزيارات.
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <strong>
+        الزيارات اليومية
+      </strong>
+
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              التاريخ
+            </th>
+
+            <th>
+              عدد الزيارات
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="dailyVisits">
+
+          <tr>
+
+            <td colspan="2">
+
+              لا توجد زيارات مسجلة بعد.
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  <strong id="footer_name">
+
+    عيادة يشفين لطب الأسنان
+
+  </strong>
+
+  <br>
+
+  اتصل واحجز موعدك
+
+</footer>
+
+
+</main>
+
+
+<script>
+
+/* ======================================
+   إعدادات Supabase
+====================================== */
+
+const SUPABASE_URL =
+  "https://pgpweaerodprcsgfztzl.supabase.co";
+
+
+const SUPABASE_KEY =
+  "sb_publishable_kpZLHzPc-NcQ8g9A3Cl9JQ_JzCjZb4h";
+
+
+/* ======================================
+   أسماء التخزين داخل الموبايل
+====================================== */
+
+const VISITOR_ID_KEY =
+  "yashfeen_visitor_id";
+
+
+const OWNER_DEVICE_KEY =
+  "yashfeen_owner_device";
+
+
+const OWNER_TOKEN_KEY =
+  "yashfeen_owner_token";
+
+
+/* ======================================
+   أدوات بسيطة
+====================================== */
+
+function element(id){
+
+  return document.getElementById(id);
+
+}
+
+
+function text(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+
+    return "";
+
+  }
+
+  return String(value);
+
+}
+
+
+/* ======================================
+   عرض الخدمات
+====================================== */
+
+function showCards(
+  id,
+  items
+){
+
+  const container =
+    element(id);
+
+
+  container.innerHTML =
+    "";
+
+
+  const list =
+    Array.isArray(items)
+    ? items
+    : [];
+
+
+  list.forEach(
+    function(item){
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "card";
+
+
+      card.textContent =
+        text(item);
+
+
+      container.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* ======================================
+   عرض التعليمات
+====================================== */
+
+function showList(
+  id,
+  items
+){
+
+  const container =
+    element(id);
+
+
+  container.innerHTML =
+    "";
+
+
+  const list =
+    Array.isArray(items)
+    ? items
+    : [];
+
+
+  list.forEach(
+    function(item){
+
+      const li =
+        document.createElement("li");
+
+
+      li.textContent =
+        text(item);
+
+
+      container.appendChild(li);
+
+    }
+  );
+
+}
+
+
+/* ======================================
+   تحميل بيانات العيادة
+====================================== */
+
+fetch(
+  "content.json?v=" +
+  Date.now(),
+  {
+    cache:"no-store"
+  }
+)
+
+.then(
+  function(response){
+
+    if(
+      !response.ok
+    ){
+
+      throw new Error(
+        "تعذر تحميل بيانات العيادة"
+      );
+
+    }
+
+
+    return response.json();
+
+  }
+)
+
+.then(
+  function(data){
+
+
+    element(
+      "clinic_name"
+    ).textContent =
+      text(
+        data.clinic_name
+      );
+
+
+    element(
+      "footer_name"
+    ).textContent =
+      text(
+        data.clinic_name
+      );
+
+
+    element(
+      "tagline"
+    ).textContent =
+      text(
+        data.tagline
+      );
+
+
+    element(
+      "clinic_location"
+    ).textContent =
+      text(
+        data.location
+      );
+
+
+    element(
+      "hours"
+    ).textContent =
+      text(
+        data.hours
+      );
+
+
+    element(
+      "morning_hours"
+    ).textContent =
+      text(
+        data.morning_hours
+      );
+
+
+    element(
+      "whatsapp"
+    ).textContent =
+      text(
+        data.whatsapp
+      );
+
+
+    element(
+      "phone"
+    ).textContent =
+      text(
+        data.phone
+      );
+
+
+    element(
+      "prices_note"
+    ).textContent =
+      text(
+        data.prices_note
+      );
+
+
+    showCards(
+      "services",
+      data.services
+    );
+
+
+    if(
+      data.instructions
+    ){
+
+      showList(
+        "post_extraction",
+        data.instructions.post_extraction
+      );
+
+
+      showList(
+        "booking",
+        data.instructions.booking
+      );
+
+    }
+
+
+    /* زر واتساب */
+
+    if(
+      data.whatsapp
+    ){
+
+      const whatsappNumber =
+        String(
+          data.whatsapp
+        )
+        .replace(
+          /\D/g,
+          ""
+        )
+        .replace(
+          /^0/,
+          ""
+        );
+
+
+      element(
+        "wa"
+      ).href =
+        "https://wa.me/964" +
+        whatsappNumber;
+
+    }
+
+
+    /* زر الاتصال */
+
+    if(
+      data.phone
+    ){
+
+      const phoneNumber =
+        String(
+          data.phone
+        )
+        .replace(
+          /\D/g,
+          ""
+        )
+        .replace(
+          /^0/,
+          ""
+        );
+
+
+      element(
+        "call_btn"
+      ).href =
+        "tel:+964" +
+        phoneNumber;
+
+    }
+
+
+  }
+)
+
+.catch(
+  function(error){
+
+    console.error(error);
+
+  }
+);
+
+
+/* ======================================
+   إنشاء رقم خاص بكل جهاز
+====================================== */
+
+function createVisitorId(){
+
+
+  if(
+    typeof crypto !== "undefined" &&
+    crypto.randomUUID
+  ){
+
+    return crypto.randomUUID();
+
+  }
+
+
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+
+  .replace(
+    /[xy]/g,
+    function(character){
+
+      const random =
+        Math.random() * 16 | 0;
+
+
+      const value =
+        character === "x"
+        ? random
+        : (
+            random & 0x3 |
+            0x8
+          );
+
+
+      return value.toString(16);
+
+    }
+  );
+
+}
+
+
+/* ======================================
+   هل هذا موبايل صاحب العيادة؟
+====================================== */
+
+function isOwnerDevice(){
+
+
+  return (
+    localStorage.getItem(
+      OWNER_DEVICE_KEY
+    ) === "1"
+  );
+
+}
+
+
+/* ======================================
+   تسجيل الزيارة
+====================================== */
+
+function recordVisit(){
+
+
+  /*
+  إذا هذا موبايل صاحب العيادة
+  لا نحسب الزيارة أبدًا.
+  */
+
+  if(
+    isOwnerDevice()
+  ){
+
+    return;
+
+  }
+
+
+  /*
+  إذا دخلت من رابط تعريف الموبايل
+  لا نحسب هذه الزيارة أيضًا.
+  */
+
+  const query =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  if(
+    query.get(
+      "ownerSetup"
+    ) === "1"
+  ){
+
+    return;
+
+  }
+
+
+  let visitorId =
+    localStorage.getItem(
+      VISITOR_ID_KEY
+    );
+
+
+  if(
+    !visitorId
+  ){
+
+    visitorId =
+      createVisitorId();
+
+
+    localStorage.setItem(
+      VISITOR_ID_KEY,
+      visitorId
+    );
+
+  }
+
+
+  fetch(
+    SUPABASE_URL +
+    "/rest/v1/site_visits",
+    {
+
+      method:"POST",
+
+      headers:{
+
+        "apikey":
+          SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " +
+          SUPABASE_KEY,
+
+        "Content-Type":
+          "application/json",
+
+        "Prefer":
+          "return=minimal"
+
+      },
+
+      body:
+        JSON.stringify(
+          {
+            visitor_id:
+              visitorId
+          }
+        )
+
+    }
+  )
+
+  .catch(
+    function(error){
+
+      console.error(
+        error
+      );
+
+    }
+  );
+
+}
+
+
+/* ======================================
+   تشغيل عداد الزيارات
+====================================== */
+
+recordVisit();
+
+
+/* ======================================
+   تحديد وضع صاحب العيادة
+====================================== */
+
+const urlParameters =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const ownerSetupMode =
+  (
+    urlParameters.get(
+      "ownerSetup"
+    ) === "1"
+  );
+
+
+/*
+إذا الجهاز معرف مسبقًا كجهاز صاحب العيادة
+تظهر الإحصائيات تلقائيًا.
+*/
+
+if(
+  isOwnerDevice()
+){
+
+  element(
+    "ownerPanel"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+
+  const savedToken =
+    localStorage.getItem(
+      OWNER_TOKEN_KEY
+    );
+
+
+  if(
+    savedToken
+  ){
+
+    showOwnerStatistics();
+
+    loadStatistics();
+
+  }
+  else{
+
+    element(
+      "ownerLogin"
+    )
+    .classList
+    .remove(
+      "hidden"
+    );
+
+  }
+
+}
+
+
+/*
+أول مرة فقط:
+إذا فتحت رابط ownerSetup
+يظهر تسجيل الدخول حتى نعرف أن هذا جهازك.
+*/
+
+else if(
+  ownerSetupMode
+){
+
+  element(
+    "ownerPanel"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+
+  element(
+    "ownerLogin"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+}
+
+
+/* ======================================
+   تسجيل دخول صاحب العيادة
+====================================== */
+
+async function loginOwner(){
+
+
+  const email =
+    element(
+      "ownerEmail"
+    )
+    .value
+    .trim();
+
+
+  const password =
+    element(
+      "ownerPassword"
+    )
+    .value;
+
+
+  element(
+    "ownerLoginMessage"
+  )
+  .innerHTML =
+    '<div class="message">جاري تسجيل الدخول...</div>';
+
+
+  try{
+
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/auth/v1/token?grant_type=password",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify(
+              {
+
+                email:
+                  email,
+
+                password:
+                  password
+
+              }
+            )
+
+        }
+
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data.access_token
+    ){
+
+      element(
+        "ownerLoginMessage"
+      )
+      .innerHTML =
+        '<div class="message">فشل تسجيل الدخول. تأكد من الإيميل وكلمة المرور.</div>';
+
+
+      return;
+
+    }
+
+
+    /*
+    هنا الموقع عرف أن هذا موبايل صاحب العيادة.
+    */
+
+    localStorage.setItem(
+      OWNER_DEVICE_KEY,
+      "1"
+    );
+
+
+    /*
+    نحفظ تسجيل الدخول حتى لا تحتاج
+    لإدخاله كل مرة.
+    */
+
+    localStorage.setItem(
+      OWNER_TOKEN_KEY,
+      data.access_token
+    );
+
+
+    showOwnerStatistics();
+
+
+    loadStatistics();
+
+
+    /*
+    نحذف ownerSetup من الرابط
+    حتى ترجع الصفحة للرابط الطبيعي.
+    */
+
+    window.history.replaceState(
+      {},
+      "",
+      window.location.pathname
+    );
+
+
+  }
+  catch(error){
+
+
+    console.error(error);
+
+
+    element(
+      "ownerLoginMessage"
+    )
+    .innerHTML =
+      '<div class="message">تعذر الاتصال بقاعدة البيانات.</div>';
+
+
+  }
+
+}
+
+
+/* ======================================
+   عرض لوحة الإحصائيات
+====================================== */
+
+function showOwnerStatistics(){
+
+
+  element(
+    "ownerLogin"
+  )
+  .classList
+  .add(
+    "hidden"
+  );
+
+
+  element(
+    "ownerStats"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+
+  element(
+    "logoutButton"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+}
+
+
+/* ======================================
+   تحميل الإحصائيات
+====================================== */
+
+async function loadStatistics(){
+
+
+  const token =
+    localStorage.getItem(
+      OWNER_TOKEN_KEY
+    );
+
+
+  if(
+    !token
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/rpc/get_visit_stats",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              token,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:"{}"
+
+        }
+
+      );
+
+
+    /*
+    إذا انتهت صلاحية تسجيل الدخول
+    نخليك تدخل مرة ثانية،
+    لكن الموبايل يبقى مستثنى.
+    */
+
+    if(
+      response.status === 401
+    ){
+
+      localStorage.removeItem(
+        OWNER_TOKEN_KEY
+      );
+
+
+      element(
+        "ownerStats"
+      )
+      .classList
+      .add(
+        "hidden"
+      );
+
+
+      element(
+        "ownerLogin"
+      )
+      .classList
+      .remove(
+        "hidden"
+      );
+
+
+      return;
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok
+    ){
+
+      console.error(data);
+
+      return;
+
+    }
+
+
+    element(
+      "todayVisits"
+    )
+    .textContent =
+      data.today || 0;
+
+
+    element(
+      "monthVisits"
+    )
+    .textContent =
+      data.month || 0;
+
+
+    element(
+      "yearVisits"
+    )
+    .textContent =
+      data.year || 0;
+
+
+    const daily =
+      Array.isArray(
+        data.daily
+      )
+      ? data.daily
+      : [];
+
+
+    if(
+      daily.length === 0
+    ){
+
+      element(
+        "dailyVisits"
+      )
+      .innerHTML =
+        '<tr><td colspan="2">لا توجد زيارات مسجلة بعد.</td></tr>';
+
+
+      return;
+
+    }
+
+
+    let rows =
+      "";
+
+
+    daily.forEach(
+      function(item){
+
+
+        rows +=
+
+          "<tr>" +
+
+          "<td>" +
+          text(
+            item.date
+          ) +
+          "</td>" +
+
+          "<td>" +
+          text(
+            item.visits
+          ) +
+          "</td>" +
+
+          "</tr>";
+
+
+      }
+    );
+
+
+    element(
+      "dailyVisits"
+    )
+    .innerHTML =
+      rows;
+
+
+  }
+  catch(error){
+
+
+    console.error(error);
+
+
+  }
+
+}
+
+
+/* ======================================
+   تسجيل الخروج
+====================================== */
+
+function logoutOwner(){
+
+
+  /*
+  نحذف تسجيل الدخول فقط.
+  لكن الجهاز يبقى معروفًا كموبايلك
+  ويظل مستثنى من الزيارات.
+  */
+
+  localStorage.removeItem(
+    OWNER_TOKEN_KEY
+  );
+
+
+  window.location.reload();
+
+}
+
+</script>
+
+</body>
+</html>
