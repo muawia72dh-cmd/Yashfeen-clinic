@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>إحصائيات زيارات عيادة يشفين</title>
+<style>
+:root{--ink:#153f46;--gold:#c59a35;--soft:#eef5f4;--paper:#fffdf8;}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--soft);color:#182126}
+.wrap{max-width:920px;margin:auto;padding:18px}
+h1{color:var(--ink);margin-bottom:6px}
+.card{background:white;border:1px solid #dce8e5;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 3px 12px #0000000a}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{text-align:center;background:var(--ink);color:#fff;border-radius:16px;padding:20px 10px}
+.stat strong{display:block;font-size:34px;color:#ffd978}
+input{width:100%;padding:13px;border:1px solid #ccd9d6;border-radius:10px;margin:7px 0;font:inherit}
+button{border:0;border-radius:12px;padding:13px 16px;font-weight:800;cursor:pointer;margin:4px}
+.primary{background:var(--ink);color:#fff}
+.gold{background:var(--gold);color:#1a2224}
+.danger{background:#8e2f2f;color:#fff}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #e3e9e7;text-align:center}
+th{background:#f4f7f6;color:var(--ink)}
+.msg{padding:11px;border-radius:10px;background:#fff4d5;margin-top:10px}
+.hidden{display:none}
+@media(max-width:620px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>إحصائيات زيارات عيادة يشفين</h1>
+<p>هذه الصفحة خاصة بصاحب العيادة.</p>
+
+<div id="loginBox" class="card">
+  <h3>تسجيل الدخول</h3>
+  <input id="email" type="email" placeholder="الإيميل">
+  <input id="password" type="password" placeholder="كلمة المرور">
+  <button class="primary" onclick="login()">دخول</button>
+  <div id="loginMsg"></div>
+</div>
+
+<div id="dashboard" class="hidden">
+  <div class="grid">
+    <div class="stat">زيارات اليوم<strong id="today">0</strong></div>
+    <div class="stat">زيارات هذا الشهر<strong id="month">0</strong></div>
+    <div class="stat">زيارات هذه السنة<strong id="year">0</strong></div>
+  </div>
+
+  <div class="card">
+    <button class="gold" onclick="excludeThisDevice()">استثنِ هذا الجهاز من العد</button>
+    <button class="danger" onclick="includeThisDevice()">أعد احتساب هذا الجهاز</button>
+    <button class="primary" onclick="loadStats()">تحديث الإحصائيات</button>
+    <div id="deviceMsg" class="msg"></div>
+  </div>
+
+  <div class="card">
+    <h3>الزيارات اليومية</h3>
+    <table>
+      <thead><tr><th>التاريخ</th><th>عدد الزيارات</th></tr></thead>
+      <tbody id="dailyRows"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <button class="danger" onclick="logout()">تسجيل الخروج</button>
+  </div>
+</div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://pgpweaerodprcsgfztzl.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kpZLHzPc-NcQ8g9A3Cl9JQ_JzCjZb4h";
+const TOKEN_KEY = "yashfeen_admin_token";
+const EXCLUDE_KEY = "yashfeen_exclude_device";
+
+function msg(el, text) {
+  document.getElementById(el).innerHTML = '<div class="msg">' + text + '</div>';
+}
+
+async function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  msg("loginMsg", "جاري تسجيل الدخول...");
+  const r = await fetch(SUPABASE_URL + "/auth/v1/token?grant_type=password", {
+    method:"POST",
+    headers:{"apikey":SUPABASE_KEY,"Content-Type":"application/json"},
+    body:JSON.stringify({email,password})
+  });
+  const data = await r.json();
+  if (!r.ok || !data.access_token) {
+    msg("loginMsg", "فشل تسجيل الدخول. تأكد من الإيميل وكلمة المرور.");
+    return;
+  }
+  localStorage.setItem(TOKEN_KEY, data.access_token);
+  showDashboard();
+  loadStats();
+}
+
+function logout() {
+  localStorage.removeItem(TOKEN_KEY);
+  location.reload();
+}
+
+function showDashboard() {
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+  updateDeviceMsg();
+}
+
+function updateDeviceMsg() {
+  const excluded = localStorage.getItem(EXCLUDE_KEY) === "1";
+  document.getElementById("deviceMsg").textContent =
+    excluded ? "هذا الجهاز مستثنى حاليًا من عدّ الزيارات." : "هذا الجهاز يُحتسب ضمن الزيارات حاليًا.";
+}
+
+function excludeThisDevice() {
+  localStorage.setItem(EXCLUDE_KEY,"1");
+  updateDeviceMsg();
+}
+
+function includeThisDevice() {
+  localStorage.removeItem(EXCLUDE_KEY);
+  updateDeviceMsg();
+}
+
+async function loadStats() {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!token) return;
+
+  const r = await fetch(SUPABASE_URL + "/rest/v1/rpc/get_visit_stats", {
+    method:"POST",
+    headers:{
+      "apikey":SUPABASE_KEY,
+      "Authorization":"Bearer " + token,
+      "Content-Type":"application/json"
+    },
+    body:"{}"
+  });
+
+  if (r.status === 401) {
+    localStorage.removeItem(TOKEN_KEY);
+    location.reload();
+    return;
+  }
+
+  const data = await r.json();
+  if (!r.ok) {
+    alert("تعذر تحميل الإحصائيات.");
+    return;
+  }
+
+  document.getElementById("today").textContent = data.today ?? 0;
+  document.getElementById("month").textContent = data.month ?? 0;
+  document.getElementById("year").textContent = data.year ?? 0;
+
+  const rows = Array.isArray(data.daily) ? data.daily : [];
+  document.getElementById("dailyRows").innerHTML = rows.length
+    ? rows.map(x => `<tr><td>${x.date}</td><td>${x.visits}</td></tr>`).join("")
+    : '<tr><td colspan="2">لا توجد زيارات مسجلة بعد.</td></tr>';
+}
+
+if (localStorage.getItem(TOKEN_KEY)) {
+  showDashboard();
+  loadStats();
+}
+</script>
+</body>
+</html>
