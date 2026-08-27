@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>عيادة يشفين لطب الأسنان</title>
 
@@ -12,9 +12,13 @@
   --gold:#c59a35;
   --paper:#fffdf8;
   --soft:#eef5f4;
+  --danger:#8e2f2f;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   font-family:Tahoma,Arial,sans-serif;
@@ -37,7 +41,9 @@ body{
   border-bottom:4px solid var(--gold);
 }
 
-.logo{font-size:56px}
+.logo{
+  font-size:56px;
+}
 
 h1{
   margin:4px 0;
@@ -63,6 +69,9 @@ h1{
   text-align:center;
   text-decoration:none;
   font-weight:800;
+  border:0;
+  cursor:pointer;
+  font-family:inherit;
 }
 
 .primary{
@@ -75,7 +84,14 @@ h1{
   color:#1d2629;
 }
 
-section{padding:18px}
+.danger{
+  background:var(--danger);
+  color:white;
+}
+
+section{
+  padding:18px;
+}
 
 h2{
   font-size:23px;
@@ -155,17 +171,85 @@ footer{
   padding:22px;
 }
 
-.error{
-  margin:20px;
-  padding:20px;
+.hidden{
+  display:none !important;
+}
+
+/* لوحة الإحصائيات الخاصة */
+
+.admin-wrap{
+  background:#f6faf9;
+  border-top:4px solid var(--gold);
+  padding:18px;
+}
+
+.admin-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:14px 0;
+}
+
+.stat{
   text-align:center;
-  background:#fff4d5;
+  background:var(--ink);
+  color:white;
   border-radius:14px;
-  color:#153f46;
+  padding:16px 8px;
+}
+
+.stat strong{
+  display:block;
+  font-size:32px;
+  color:#ffd978;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border:1px solid #cad9d5;
+  border-radius:10px;
+  margin:6px 0;
+  font:inherit;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:9px;
+  border-bottom:1px solid #e1e8e6;
+  text-align:center;
+}
+
+th{
+  background:#f0f5f3;
+  color:var(--ink);
+}
+
+.msg{
+  background:#fff4d5;
+  border-radius:10px;
+  padding:10px;
+  margin-top:10px;
 }
 
 @media(max-width:540px){
-  .grid,.actions{
+
+  .grid,
+  .actions,
+  .stats-grid{
     grid-template-columns:1fr;
   }
 
@@ -174,6 +258,7 @@ footer{
   }
 }
 </style>
+
 </head>
 
 <body>
@@ -181,25 +266,36 @@ footer{
 <main class="wrap">
 
 <header class="hero">
+
   <div class="logo">🦷</div>
-  <h1 id="clinic_name">عيادة يشفين لطب الأسنان</h1>
-  <div class="sub" id="tagline"></div>
+
+  <h1 id="clinic_name">
+    عيادة يشفين لطب الأسنان
+  </h1>
+
+  <div
+    class="sub"
+    id="tagline">
+  </div>
+
 </header>
 
 
 <div class="actions">
 
-  <a id="wa"
-     class="btn primary"
-     href="#"
-     target="_blank"
-     rel="noopener">
+  <a
+    id="wa"
+    class="btn primary"
+    href="#"
+    target="_blank"
+    rel="noopener">
     احجز عبر واتساب
   </a>
 
-  <a id="call_btn"
-     class="btn secondary"
-     href="#">
+  <a
+    id="call_btn"
+    class="btn secondary"
+    href="#">
     اتصل بالعيادة
   </a>
 
@@ -208,25 +304,44 @@ footer{
 
 <section>
 
-  <h2>خدماتنا</h2>
+  <h2>
+    خدماتنا
+  </h2>
 
-  <div id="services" class="grid"></div>
+  <div
+    id="services"
+    class="grid">
+  </div>
 
 </section>
 
 
 <section>
 
-  <h2>تعليمات المرضى</h2>
+  <h2>
+    تعليمات المرضى
+  </h2>
+
 
   <details>
-    <summary>تعليمات ما بعد القلع</summary>
+
+    <summary>
+      تعليمات ما بعد القلع
+    </summary>
+
     <ul id="post_extraction"></ul>
+
   </details>
+
 
   <details>
-    <summary>تعليمات الحجوزات</summary>
+
+    <summary>
+      تعليمات الحجوزات
+    </summary>
+
     <ul id="booking"></ul>
+
   </details>
 
 </section>
@@ -234,36 +349,59 @@ footer{
 
 <section>
 
-  <h2>الأسعار والملاحظات</h2>
+  <h2>
+    الأسعار والملاحظات
+  </h2>
 
-  <div class="note" id="prices_note"></div>
+  <div
+    class="note"
+    id="prices_note">
+  </div>
 
 </section>
 
 
 <section>
 
-  <h2>📍 الموقع والدوام</h2>
+  <h2>
+    📍 الموقع والدوام
+  </h2>
 
   <div class="card">
 
-    <strong>الموقع:</strong>
+    <strong>
+      الموقع:
+    </strong>
+
     <div id="clinic_location"></div>
 
     <br>
 
-    <strong>دوام العيادة:</strong>
+
+    <strong>
+      دوام العيادة:
+    </strong>
+
     <div id="hours"></div>
+
     <div id="morning_hours"></div>
 
     <br>
 
-    <strong>واتساب:</strong>
+
+    <strong>
+      واتساب:
+    </strong>
+
     <span id="whatsapp"></span>
 
     <br>
 
-    <strong>اتصال:</strong>
+
+    <strong>
+      اتصال:
+    </strong>
+
     <span id="phone"></span>
 
 
@@ -272,12 +410,16 @@ footer{
       href="https://maps.app.goo.gl/zVLP1rdeWQ9fakaF7"
       target="_blank"
       rel="noopener noreferrer">
+
       📍 فتح موقع العيادة على Google Maps
+
     </a>
 
 
     <div class="map-title">
+
       الخريطة الإرشادية للوصول إلى العيادة
+
     </div>
 
 
@@ -291,10 +433,234 @@ footer{
 </section>
 
 
+<!--
+لوحة الإحصائيات الخاصة
+
+هذه لا تظهر للمرضى عند فتح الموقع العادي.
+
+تظهر فقط عند فتح الموقع مع:
+?admin=1
+-->
+
+<section
+  id="adminSection"
+  class="admin-wrap hidden">
+
+
+  <div class="admin-head">
+
+    <h2 style="margin:0">
+
+      📊 إحصائيات الزيارات
+
+    </h2>
+
+
+    <button
+      id="logoutBtn"
+      class="btn danger hidden"
+      onclick="logoutAdmin()">
+
+      تسجيل الخروج
+
+    </button>
+
+  </div>
+
+
+  <!-- تسجيل دخول صاحب العيادة -->
+
+  <div
+    id="loginBox"
+    class="card">
+
+    <strong>
+
+      تسجيل دخول صاحب العيادة
+
+    </strong>
+
+
+    <input
+      id="adminEmail"
+      type="email"
+      placeholder="الإيميل">
+
+
+    <input
+      id="adminPassword"
+      type="password"
+      placeholder="كلمة المرور">
+
+
+    <button
+      class="btn primary"
+      onclick="loginAdmin()">
+
+      دخول
+
+    </button>
+
+
+    <div id="loginMsg"></div>
+
+  </div>
+
+
+  <!-- الإحصائيات -->
+
+  <div
+    id="statsBox"
+    class="hidden">
+
+
+    <div class="stats-grid">
+
+
+      <div class="stat">
+
+        زيارات اليوم
+
+        <strong id="todayVisits">
+
+          0
+
+        </strong>
+
+      </div>
+
+
+      <div class="stat">
+
+        زيارات هذا الشهر
+
+        <strong id="monthVisits">
+
+          0
+
+        </strong>
+
+      </div>
+
+
+      <div class="stat">
+
+        زيارات هذه السنة
+
+        <strong id="yearVisits">
+
+          0
+
+        </strong>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="card">
+
+
+      <button
+        class="btn secondary"
+        onclick="excludeThisDevice()">
+
+        استثنِ هذا الجهاز من العد
+
+      </button>
+
+
+      <button
+        class="btn danger"
+        onclick="includeThisDevice()">
+
+        أعد احتساب هذا الجهاز
+
+      </button>
+
+
+      <button
+        class="btn primary"
+        onclick="loadStats()">
+
+        تحديث الإحصائيات
+
+      </button>
+
+
+      <div
+        id="deviceMsg"
+        class="msg">
+      </div>
+
+
+    </div>
+
+
+    <div class="card">
+
+
+      <strong>
+
+        الزيارات اليومية
+
+      </strong>
+
+
+      <table>
+
+
+        <thead>
+
+          <tr>
+
+            <th>
+              التاريخ
+            </th>
+
+            <th>
+              عدد الزيارات
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="dailyRows">
+
+          <tr>
+
+            <td colspan="2">
+
+              لا توجد بيانات بعد.
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+
+      </table>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
 <footer>
 
   <strong id="footer_name">
+
     عيادة يشفين لطب الأسنان
+
   </strong>
 
   <br>
@@ -303,187 +669,970 @@ footer{
 
 </footer>
 
+
 </main>
 
 
 <script>
 
-function byId(id) {
+/* =========================================
+   إعدادات Supabase
+========================================= */
+
+const SUPABASE_URL =
+  "https://pgpweaerodprcsgfztzl.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_kpZLHzPc-NcQ8g9A3Cl9JQ_JzCjZb4h";
+
+
+const VISITOR_KEY =
+  "yashfeen_visitor_id";
+
+const EXCLUDE_KEY =
+  "yashfeen_exclude_device";
+
+const TOKEN_KEY =
+  "yashfeen_admin_token";
+
+
+/* =========================================
+   أدوات مساعدة
+========================================= */
+
+function byId(id){
+
   return document.getElementById(id);
+
 }
 
-function safeText(value) {
-  if (value === null || value === undefined) {
+
+function safe(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+
     return "";
+
   }
 
   return String(value);
+
 }
 
-function addCards(elementId, items) {
 
-  var container = byId(elementId);
+/* =========================================
+   عرض الخدمات
+========================================= */
 
-  container.innerHTML = "";
+function addCards(
+  id,
+  items
+){
 
-  if (!Array.isArray(items)) {
+  const box =
+    byId(id);
+
+
+  box.innerHTML =
+    "";
+
+
+  const list =
+    Array.isArray(items)
+    ? items
+    : [];
+
+
+  list.forEach(
+    function(item){
+
+      const div =
+        document.createElement("div");
+
+
+      div.className =
+        "card";
+
+
+      div.textContent =
+        safe(item);
+
+
+      box.appendChild(div);
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   عرض التعليمات
+========================================= */
+
+function addList(
+  id,
+  items
+){
+
+  const box =
+    byId(id);
+
+
+  box.innerHTML =
+    "";
+
+
+  const list =
+    Array.isArray(items)
+    ? items
+    : [];
+
+
+  list.forEach(
+    function(item){
+
+      const li =
+        document.createElement("li");
+
+
+      li.textContent =
+        safe(item);
+
+
+      box.appendChild(li);
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   تحميل محتويات العيادة من content.json
+========================================= */
+
+fetch(
+  "content.json?v=" +
+  Date.now(),
+  {
+    cache:"no-store"
+  }
+)
+
+.then(
+  function(response){
+
+    if(!response.ok){
+
+      throw new Error(
+        "تعذر تحميل content.json"
+      );
+
+    }
+
+    return response.json();
+
+  }
+)
+
+.then(
+  function(data){
+
+
+    byId("clinic_name").textContent =
+      safe(
+        data.clinic_name
+      );
+
+
+    byId("footer_name").textContent =
+      safe(
+        data.clinic_name
+      );
+
+
+    byId("tagline").textContent =
+      safe(
+        data.tagline
+      );
+
+
+    byId("clinic_location").textContent =
+      safe(
+        data.location
+      );
+
+
+    byId("hours").textContent =
+      safe(
+        data.hours
+      );
+
+
+    byId("morning_hours").textContent =
+      safe(
+        data.morning_hours
+      );
+
+
+    byId("whatsapp").textContent =
+      safe(
+        data.whatsapp
+      );
+
+
+    byId("phone").textContent =
+      safe(
+        data.phone
+      );
+
+
+    byId("prices_note").textContent =
+      safe(
+        data.prices_note
+      );
+
+
+    addCards(
+      "services",
+      data.services
+    );
+
+
+    if(
+      data.instructions
+    ){
+
+      addList(
+        "post_extraction",
+        data.instructions.post_extraction
+      );
+
+
+      addList(
+        "booking",
+        data.instructions.booking
+      );
+
+    }
+
+
+    /* واتساب */
+
+    if(
+      data.whatsapp
+    ){
+
+      const whatsappNumber =
+        String(
+          data.whatsapp
+        )
+        .replace(
+          /\D/g,
+          ""
+        )
+        .replace(
+          /^0/,
+          ""
+        );
+
+
+      byId("wa").href =
+        "https://wa.me/964" +
+        whatsappNumber;
+
+    }
+
+
+    /* الاتصال */
+
+    if(
+      data.phone
+    ){
+
+      const phoneNumber =
+        String(
+          data.phone
+        )
+        .replace(
+          /\D/g,
+          ""
+        )
+        .replace(
+          /^0/,
+          ""
+        );
+
+
+      byId("call_btn").href =
+        "tel:+964" +
+        phoneNumber;
+
+    }
+
+
+  }
+)
+
+.catch(
+  function(error){
+
+    console.error(error);
+
+  }
+);
+
+
+/* =========================================
+   إنشاء هوية مجهولة للجهاز
+========================================= */
+
+function createVisitorId(){
+
+  if(
+    typeof crypto !== "undefined" &&
+    crypto.randomUUID
+  ){
+
+    return crypto.randomUUID();
+
+  }
+
+
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+
+  .replace(
+    /[xy]/g,
+    function(character){
+
+      const random =
+        Math.random() * 16 | 0;
+
+
+      const value =
+        character === "x"
+        ? random
+        : (
+            random & 0x3 |
+            0x8
+          );
+
+
+      return value.toString(16);
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   تسجيل الزيارة
+========================================= */
+
+function recordVisit(){
+
+
+  /* إذا هذا جهاز صاحب العيادة
+     لا نسجل الزيارة */
+
+  if(
+    localStorage.getItem(
+      EXCLUDE_KEY
+    ) === "1"
+  ){
+
     return;
+
   }
 
-  items.forEach(function(item) {
 
-    var div = document.createElement("div");
+  let visitorId =
+    localStorage.getItem(
+      VISITOR_KEY
+    );
 
-    div.className = "card";
 
-    div.textContent = safeText(item);
+  if(
+    !visitorId
+  ){
 
-    container.appendChild(div);
+    visitorId =
+      createVisitorId();
 
-  });
+
+    localStorage.setItem(
+      VISITOR_KEY,
+      visitorId
+    );
+
+  }
+
+
+  fetch(
+    SUPABASE_URL +
+    "/rest/v1/site_visits",
+    {
+
+      method:"POST",
+
+      headers:{
+
+        "apikey":
+          SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " +
+          SUPABASE_KEY,
+
+        "Content-Type":
+          "application/json",
+
+        "Prefer":
+          "return=minimal"
+
+      },
+
+      body:
+        JSON.stringify(
+          {
+            visitor_id:
+              visitorId
+          }
+        )
+
+    }
+  )
+
+  .then(
+    function(response){
+
+      /*
+      إذا نفس الجهاز داخل أكثر من مرة
+      بنفس اليوم، قاعدة البيانات تمنع
+      تكرار الزيارة.
+
+      لذلك ما نحتاج نسوي أي شيء هنا.
+      */
+
+      return response;
+
+    }
+  )
+
+  .catch(
+    function(error){
+
+      console.error(
+        "Visit tracking error:",
+        error
+      );
+
+    }
+  );
 
 }
 
-function addList(elementId, items) {
 
-  var list = byId(elementId);
+/* نسجل الزيارة عند فتح الموقع */
 
-  list.innerHTML = "";
-
-  if (!Array.isArray(items)) {
-    return;
-  }
-
-  items.forEach(function(item) {
-
-    var li = document.createElement("li");
-
-    li.textContent = safeText(item);
-
-    list.appendChild(li);
-
-  });
-
-}
+recordVisit();
 
 
-fetch("content.json?v=" + new Date().getTime(), {
-  cache: "no-store"
-})
+/* =========================================
+   إظهار لوحة الإحصائيات الخاصة
+========================================= */
 
-.then(function(response) {
-
-  if (!response.ok) {
-    throw new Error("content.json could not be loaded");
-  }
-
-  return response.json();
-
-})
-
-.then(function(data) {
-
-  byId("clinic_name").textContent =
-    safeText(data.clinic_name);
-
-  byId("footer_name").textContent =
-    safeText(data.clinic_name);
-
-  byId("tagline").textContent =
-    safeText(data.tagline);
-
-  byId("clinic_location").textContent =
-    safeText(data.location);
-
-  byId("hours").textContent =
-    safeText(data.hours);
-
-  byId("morning_hours").textContent =
-    safeText(data.morning_hours);
-
-  byId("whatsapp").textContent =
-    safeText(data.whatsapp);
-
-  byId("phone").textContent =
-    safeText(data.phone);
-
-  byId("prices_note").textContent =
-    safeText(data.prices_note);
-
-
-  addCards(
-    "services",
-    data.services
+const parameters =
+  new URLSearchParams(
+    window.location.search
   );
 
 
-  if (data.instructions) {
+if(
+  parameters.get(
+    "admin"
+  ) === "1"
+){
 
-    addList(
-      "post_extraction",
-      data.instructions.post_extraction
-    );
+  byId(
+    "adminSection"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
 
-    addList(
-      "booking",
-      data.instructions.booking
-    );
+
+  if(
+    localStorage.getItem(
+      TOKEN_KEY
+    )
+  ){
+
+    showStatsBox();
+
+    loadStats();
 
   }
 
+}
 
-  if (data.whatsapp) {
 
-    var whatsapp =
-      String(data.whatsapp).replace(/\D/g, "");
+/* =========================================
+   تسجيل دخول صاحب العيادة
+========================================= */
 
-    if (whatsapp.charAt(0) === "0") {
-      whatsapp = whatsapp.substring(1);
+async function loginAdmin(){
+
+
+  const email =
+    byId(
+      "adminEmail"
+    )
+    .value
+    .trim();
+
+
+  const password =
+    byId(
+      "adminPassword"
+    )
+    .value;
+
+
+  byId(
+    "loginMsg"
+  )
+  .innerHTML =
+    '<div class="msg">جاري تسجيل الدخول...</div>';
+
+
+  try{
+
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/auth/v1/token?grant_type=password",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify(
+              {
+
+                email:
+                  email,
+
+                password:
+                  password
+
+              }
+            )
+
+        }
+
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data.access_token
+    ){
+
+      byId(
+        "loginMsg"
+      )
+      .innerHTML =
+        '<div class="msg">فشل تسجيل الدخول. تأكد من الإيميل وكلمة المرور.</div>';
+
+
+      return;
+
     }
 
-    byId("wa").href =
-      "https://wa.me/964" + whatsapp;
 
-  }
-
-
-  if (data.phone) {
-
-    var phone =
-      String(data.phone).replace(/\D/g, "");
-
-    if (phone.charAt(0) === "0") {
-      phone = phone.substring(1);
-    }
-
-    byId("call_btn").href =
-      "tel:+964" + phone;
-
-  }
-
-})
-
-.catch(function(error) {
-
-  console.error(error);
-
-  var message =
-    document.createElement("div");
-
-  message.className = "error";
-
-  message.textContent =
-    "تعذر تحميل بيانات الصفحة. يرجى إعادة تحميل الموقع.";
-
-  document.querySelector(".wrap")
-    .insertBefore(
-      message,
-      document.querySelector(".wrap").firstChild
+    localStorage.setItem(
+      TOKEN_KEY,
+      data.access_token
     );
 
-});
+
+    showStatsBox();
+
+    loadStats();
+
+
+  }
+  catch(error){
+
+
+    console.error(error);
+
+
+    byId(
+      "loginMsg"
+    )
+    .innerHTML =
+      '<div class="msg">تعذر الاتصال بقاعدة البيانات.</div>';
+
+
+  }
+
+}
+
+
+/* =========================================
+   إظهار الإحصائيات بعد تسجيل الدخول
+========================================= */
+
+function showStatsBox(){
+
+
+  byId(
+    "loginBox"
+  )
+  .classList
+  .add(
+    "hidden"
+  );
+
+
+  byId(
+    "statsBox"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+
+  byId(
+    "logoutBtn"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+
+  updateDeviceMessage();
+
+}
+
+
+/* =========================================
+   تسجيل الخروج
+========================================= */
+
+function logoutAdmin(){
+
+
+  localStorage.removeItem(
+    TOKEN_KEY
+  );
+
+
+  window.location.reload();
+
+}
+
+
+/* =========================================
+   استثناء موبايلك من الزيارات
+========================================= */
+
+function excludeThisDevice(){
+
+
+  localStorage.setItem(
+    EXCLUDE_KEY,
+    "1"
+  );
+
+
+  updateDeviceMessage();
+
+}
+
+
+/* =========================================
+   إلغاء استثناء الجهاز
+========================================= */
+
+function includeThisDevice(){
+
+
+  localStorage.removeItem(
+    EXCLUDE_KEY
+  );
+
+
+  updateDeviceMessage();
+
+}
+
+
+/* =========================================
+   إظهار حالة الجهاز
+========================================= */
+
+function updateDeviceMessage(){
+
+
+  const excluded =
+    localStorage.getItem(
+      EXCLUDE_KEY
+    ) === "1";
+
+
+  if(
+    excluded
+  ){
+
+    byId(
+      "deviceMsg"
+    )
+    .textContent =
+      "هذا الجهاز مستثنى حاليًا من عدّ الزيارات.";
+
+  }
+  else{
+
+    byId(
+      "deviceMsg"
+    )
+    .textContent =
+      "هذا الجهاز يُحتسب حاليًا ضمن الزيارات.";
+
+  }
+
+}
+
+
+/* =========================================
+   تحميل الإحصائيات
+========================================= */
+
+async function loadStats(){
+
+
+  const token =
+    localStorage.getItem(
+      TOKEN_KEY
+    );
+
+
+  if(
+    !token
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/rpc/get_visit_stats",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              token,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:"{}"
+
+        }
+
+      );
+
+
+    if(
+      response.status === 401
+    ){
+
+      localStorage.removeItem(
+        TOKEN_KEY
+      );
+
+
+      window.location.reload();
+
+
+      return;
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok
+    ){
+
+      console.error(data);
+
+      alert(
+        "تعذر تحميل الإحصائيات."
+      );
+
+      return;
+
+    }
+
+
+    /* زيارات اليوم */
+
+    byId(
+      "todayVisits"
+    )
+    .textContent =
+      data.today || 0;
+
+
+    /* زيارات الشهر */
+
+    byId(
+      "monthVisits"
+    )
+    .textContent =
+      data.month || 0;
+
+
+    /* زيارات السنة */
+
+    byId(
+      "yearVisits"
+    )
+    .textContent =
+      data.year || 0;
+
+
+    /* الجدول اليومي */
+
+    const rows =
+      Array.isArray(
+        data.daily
+      )
+      ? data.daily
+      : [];
+
+
+    if(
+      rows.length === 0
+    ){
+
+      byId(
+        "dailyRows"
+      )
+      .innerHTML =
+        '<tr><td colspan="2">لا توجد زيارات مسجلة بعد.</td></tr>';
+
+    }
+    else{
+
+
+      let tableHTML =
+        "";
+
+
+      rows.forEach(
+        function(row){
+
+
+          tableHTML +=
+
+            "<tr>" +
+
+            "<td>" +
+            safe(
+              row.date
+            ) +
+            "</td>" +
+
+            "<td>" +
+            safe(
+              row.visits
+            ) +
+            "</td>" +
+
+            "</tr>";
+
+
+        }
+      );
+
+
+      byId(
+        "dailyRows"
+      )
+      .innerHTML =
+        tableHTML;
+
+
+    }
+
+
+  }
+  catch(error){
+
+
+    console.error(error);
+
+
+    alert(
+      "تعذر الاتصال بقاعدة بيانات الإحصائيات."
+    );
+
+
+  }
+
+}
 
 </script>
-<script src="visitor-tracking.js"></script>
+
 </body>
-</html>
+  </html>
